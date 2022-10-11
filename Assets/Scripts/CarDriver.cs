@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class CarDriver : MonoBehaviour
 {
-    public int maxSpeed = 200; //The maximum speed that the car can reach in km/h.
+    [Range(20, 260)]
+    public int maxSpeed = 260; //The maximum speed that the car can reach in km/h.
     [Range(10, 120)]
     public int maxReverseSpeed = 45; //The maximum speed that the car can reach while going on reverse in km/h.
     [Range(1, 10)]
@@ -68,14 +69,7 @@ public class CarDriver : MonoBehaviour
     public TrailRenderer RRWTireSkid;
 
 
-    //SPEED TEXT (UI)
-
-    [Space(20)]
-    //[Header("UI")]
-    [Space(10)]
-    //The following variable lets you to set up a UI text to display the speed of your car.
-    public bool useUI = false;
-    public Text carSpeedText; // Used to store the UI object that is going to show the speed of the car.
+    
 
     //SOUNDS
 
@@ -88,7 +82,6 @@ public class CarDriver : MonoBehaviour
     public AudioSource tireScreechSound; // This variable stores the sound of the tire screech (when the car is drifting).
     float initialCarEngineSoundPitch; // Used to store the initial pitch of the car engine sound.
 
-    //CONTROLS
 
 
     //CAR DATA
@@ -177,18 +170,7 @@ public class CarDriver : MonoBehaviour
         // We invoke 2 methods inside this script. CarSpeedUI() changes the text of the UI object that stores
         // the speed of the car and CarSounds() controls the engine and drifting sounds. Both methods are invoked
         // in 0 seconds, and repeatedly called every 0.1 seconds.
-        if (useUI)
-        {
-            InvokeRepeating("CarSpeedUI", 0f, 0.1f);
-        }
-        else if (!useUI)
-        {
-            if (carSpeedText != null)
-            {
-                carSpeedText.text = "0";
-            }
-        }
-
+        
         if (useSounds)
         {
             InvokeRepeating("CarSounds", 0f, 0.1f);
@@ -254,24 +236,24 @@ public class CarDriver : MonoBehaviour
             
         {
 
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKey(KeyCode.UpArrow))
             {
                 CancelInvoke("DecelerateCar");
                 deceleratingCar = false;
                 GoForward();
             }
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetKey(KeyCode.DownArrow))
             {
                 CancelInvoke("DecelerateCar");
                 deceleratingCar = false;
                 GoReverse();
             }
 
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
                 TurnLeft();
             }
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.RightArrow))
             {
                 TurnRight();
             }
@@ -307,25 +289,7 @@ public class CarDriver : MonoBehaviour
 
     }
 
-    // This method converts the car speed data from float to string, and then set the text of the UI carSpeedText with this value.
-    public void CarSpeedUI()
-    {
-
-        if (useUI)
-        {
-            try
-            {
-                float absoluteCarSpeed = Mathf.Abs(carSpeed);
-                carSpeedText.text = Mathf.RoundToInt(absoluteCarSpeed).ToString();
-            }
-            catch (Exception ex)
-            {
-                Debug.LogWarning(ex);
-            }
-        }
-
-    }
-
+   
     // This method controls the car sounds. For example, the car engine will sound slow when the car speed is low because the
     // pitch of the sound will be at its lowest point. On the other hand, it will sound fast when the car speed is high because
     // the pitch of the sound will be the sum of the initial pitch + the car speed divided by 100f.
