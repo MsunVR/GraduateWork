@@ -123,12 +123,13 @@ public class CarDriver : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         //In this part, we set the 'carRigidbody' value with the Rigidbody attached to this
         //gameObject. Also, we define the center of mass of the car with the Vector3 given
         //in the inspector.
         carRigidbody = gameObject.GetComponent<Rigidbody>();
         carRigidbody.centerOfMass = bodyMassCenter;
-
+        Application.targetFrameRate = 61;
         //Initial setup to calculate the drift value of the car. This part could look a bit
         //complicated, but do not be afraid, the only thing we're doing here is to save the default
         //friction values of the car wheels so we can set an appropiate drifting value later.
