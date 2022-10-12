@@ -105,7 +105,7 @@ public class CarDriver : MonoBehaviour
     float localVelocityZ;
     float localVelocityX;
     bool deceleratingCar;
-    bool touchControlsSetup = false;
+    
     /*
     The following variables are used to store information about sideways friction of the wheels (such as
     extremumSlip,extremumValue, asymptoteSlip, asymptoteValue and stiffness). We change this values to
