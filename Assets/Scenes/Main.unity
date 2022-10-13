@@ -1048,8 +1048,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 6379301306008877856, guid: 4e754a23f0557c440bef5ce64c2965e1, type: 3}
-  - {fileID: -2569180680152578855, guid: 4e754a23f0557c440bef5ce64c2965e1, type: 3}
+  - {fileID: 2100000, guid: d21c61117937ef24a9974b1e05339eb3, type: 2}
+  - {fileID: 2100000, guid: 7187d593053d35642a517e1660e6f961, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1454,6 +1454,101 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 249053044}
   m_Mesh: {fileID: 7151907480478861844, guid: 4e754a23f0557c440bef5ce64c2965e1, type: 3}
+--- !u!1 &279739491
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 279739495}
+  - component: {fileID: 279739494}
+  - component: {fileID: 279739493}
+  - component: {fileID: 279739492}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &279739492
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279739491}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &279739493
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279739491}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &279739494
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279739491}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &279739495
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279739491}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 105.6, y: 86.64, z: 687.84}
+  m_LocalScale: {x: 5.57, y: 2.61, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &289096189
 GameObject:
   m_ObjectHideFlags: 0
@@ -2185,7 +2280,6 @@ GameObject:
   m_Component:
   - component: {fileID: 392093539}
   - component: {fileID: 392093538}
-  - component: {fileID: 392093537}
   - component: {fileID: 392093540}
   m_Layer: 0
   m_Name: Fairlady_240zCarAI
@@ -2194,46 +2288,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &392093537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 392093536}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5b51e929b4b61348bb948c756a20348, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSpeed: 260
-  maxReverseSpeed: 45
-  accelerationMultiplier: 8
-  maxSteeringAngle: 30
-  steeringSpeed: 0.5
-  brakeForce: 350
-  decelerationMultiplier: 2
-  handbrakeDriftMultiplier: 5
-  bodyMassCenter: {x: 1, y: -0.51, z: -1.94}
-  frontLeftMesh: {fileID: 677736599}
-  frontLeftCollider: {fileID: 742161087}
-  frontRightMesh: {fileID: 1121824065}
-  frontRightCollider: {fileID: 1856036979}
-  rearLeftMesh: {fileID: 1041252133}
-  rearLeftCollider: {fileID: 771937412}
-  rearRightMesh: {fileID: 27167381}
-  rearRightCollider: {fileID: 1125440048}
-  useEffects: 0
-  RLWParticleSystem: {fileID: 0}
-  RRWParticleSystem: {fileID: 0}
-  RLWTireSkid: {fileID: 0}
-  RRWTireSkid: {fileID: 0}
-  useSounds: 0
-  carEngineSound: {fileID: 0}
-  tireScreechSound: {fileID: 0}
-  carSpeed: 0
-  isDrifting: 0
-  isTractionLocked: 0
 --- !u!54 &392093538
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2258,7 +2312,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 392093536}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 131.48, y: 87.49, z: 707.89}
+  m_LocalPosition: {x: 131.48, y: 86.969, z: 686.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 147072801}
@@ -2297,11 +2351,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: {fileID: 940284258}
   maxSteerAngle: 45
-  maxMotorTorque: 150
+  maxMotorTorque: 240
+  maxBrakeTorque: 1000
   currentSpeed: 0
-  maxSpeed: 60
+  maxSpeed: 45
+  isBracking: 0
+  Lamp: {fileID: 147072802}
   WheelFL: {fileID: 742161087}
   WheelFR: {fileID: 1856036979}
+  WheelRL: {fileID: 771937412}
+  WheelRR: {fileID: 1125440048}
+  sensorLength: 20
+  frontSensorPosition: {x: -0.77, y: 0.2, z: 0.5}
+  frontsideSensorPosition: 0.2
+  frontSensorAngle: 30
 --- !u!1 &395591401
 GameObject:
   m_ObjectHideFlags: 0
@@ -5526,6 +5589,7 @@ MonoBehaviour:
   decelerationMultiplier: 2
   handbrakeDriftMultiplier: 5
   bodyMassCenter: {x: 0, y: 0, z: 0}
+  Lamp: {fileID: 0}
   frontLeftMesh: {fileID: 0}
   frontLeftCollider: {fileID: 0}
   frontRightMesh: {fileID: 0}
@@ -5695,7 +5759,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 940284257}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1363211418}
@@ -5992,6 +6056,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 85917459a399916489710ec5682bffef, type: 2}
+    - target: {fileID: -3811289169920138708, guid: 4fc1a13d6e9aaf1448502233b5c31f51, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7187d593053d35642a517e1660e6f961, type: 2}
     - target: {fileID: -3451952670488711442, guid: 4fc1a13d6e9aaf1448502233b5c31f51, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
@@ -9850,7 +9918,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 6379301306008877856, guid: 4e754a23f0557c440bef5ce64c2965e1, type: 3}
-  - {fileID: -2569180680152578855, guid: 4e754a23f0557c440bef5ce64c2965e1, type: 3}
+  - {fileID: 2100000, guid: 7187d593053d35642a517e1660e6f961, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11985,6 +12053,7 @@ MonoBehaviour:
   decelerationMultiplier: 2
   handbrakeDriftMultiplier: 5
   bodyMassCenter: {x: 1, y: -0.51, z: -1.94}
+  Lamp: {fileID: 5412082865760541290}
   frontLeftMesh: {fileID: 89211808216688354}
   frontLeftCollider: {fileID: 408879347}
   frontRightMesh: {fileID: 153844790229013948}
@@ -13033,7 +13102,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 6379301306008877856, guid: 4e754a23f0557c440bef5ce64c2965e1, type: 3}
-  - {fileID: -2569180680152578855, guid: 4e754a23f0557c440bef5ce64c2965e1, type: 3}
+  - {fileID: 2100000, guid: 7187d593053d35642a517e1660e6f961, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

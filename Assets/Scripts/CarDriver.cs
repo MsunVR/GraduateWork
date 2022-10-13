@@ -30,6 +30,7 @@ public class CarDriver : MonoBehaviour
                                    // however, you must notice that the higher this value is, the more unstable the car becomes.
                                    // Usually the y value goes from 0 to 1.5.
 
+    public Renderer Lamp;
     //WHEELS
 
     //[Header("WHEELS")]
@@ -248,7 +249,15 @@ public class CarDriver : MonoBehaviour
                 CancelInvoke("DecelerateCar");
                 deceleratingCar = false;
                 GoReverse();
+                
             }
+
+            if (Input.GetKeyDown(KeyCode.S))
+                Lamp.materials[1].EnableKeyword("_EMISSION");
+
+            if (Input.GetKeyUp(KeyCode.S))
+                Lamp.materials[1].DisableKeyword("_EMISSION");
+
 
             if (Input.GetKey(KeyCode.A))
             {
