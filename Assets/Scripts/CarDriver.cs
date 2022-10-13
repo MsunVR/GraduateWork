@@ -237,24 +237,24 @@ public class CarDriver : MonoBehaviour
             
         {
 
-            if (Input.GetKey(KeyCode.UpArrow))
+            if (Input.GetKey(KeyCode.W))
             {
                 CancelInvoke("DecelerateCar");
                 deceleratingCar = false;
                 GoForward();
             }
-            if (Input.GetKey(KeyCode.DownArrow))
+            if (Input.GetKey(KeyCode.S))
             {
                 CancelInvoke("DecelerateCar");
                 deceleratingCar = false;
                 GoReverse();
             }
 
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (Input.GetKey(KeyCode.A))
             {
                 TurnLeft();
             }
-            if (Input.GetKey(KeyCode.RightArrow))
+            if (Input.GetKey(KeyCode.D))
             {
                 TurnRight();
             }
