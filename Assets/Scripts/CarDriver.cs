@@ -31,6 +31,7 @@ public class CarDriver : MonoBehaviour
                                    // Usually the y value goes from 0 to 1.5.
 
     public Renderer Lamp;
+    public Renderer FrontLamp;
     //WHEELS
 
     //[Header("WHEELS")]
@@ -237,6 +238,15 @@ public class CarDriver : MonoBehaviour
         */
             
         {
+            if (Input.GetKey(KeyCode.L))
+            {
+                FrontLamp.materials[0].EnableKeyword("_EMISSION");
+            }
+
+            else 
+            {
+                FrontLamp.materials[0].DisableKeyword("_EMISSION");
+            }
 
             if (Input.GetKey(KeyCode.W))
             {
