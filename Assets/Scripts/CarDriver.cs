@@ -32,6 +32,9 @@ public class CarDriver : MonoBehaviour
 
     public Renderer Lamp;
     public Renderer FrontLamp;
+
+    public GameObject Lights;
+    public bool IsLight = false;
     //WHEELS
 
     //[Header("WHEELS")]
@@ -238,14 +241,27 @@ public class CarDriver : MonoBehaviour
         */
             
         {
-            if (Input.GetKey(KeyCode.L))
+            if (Input.GetKey(KeyCode.R))
             {
-                FrontLamp.materials[0].EnableKeyword("_EMISSION");
+                transform.rotation = Quaternion.identity;
+                transform.Translate(0, 1, 0);
+
+               // Physics.OverlapSphere()
             }
 
-            else 
+            if (Input.GetKeyDown(KeyCode.L))
             {
-                FrontLamp.materials[0].DisableKeyword("_EMISSION");
+                if (IsLight)
+                {
+                    FrontLamp.materials[0].EnableKeyword("_EMISSION");
+                    Lights.SetActive(true);
+                }
+                else
+                {
+                    FrontLamp.materials[0].DisableKeyword("_EMISSION");
+                    Lights.SetActive(false);
+                }
+                IsLight = !IsLight;
             }
 
             if (Input.GetKey(KeyCode.W))
@@ -485,9 +501,9 @@ public class CarDriver : MonoBehaviour
                 frontRightCollider.brakeTorque = 0;
                 frontRightCollider.motorTorque = (accelerationMultiplier * 50f) * throttleAxis;
                 rearLeftCollider.brakeTorque = 0;
-                rearLeftCollider.motorTorque = (accelerationMultiplier * 50f) * throttleAxis;
+                rearLeftCollider.motorTorque = (accelerationMultiplier * 100f) * throttleAxis;
                 rearRightCollider.brakeTorque = 0;
-                rearRightCollider.motorTorque = (accelerationMultiplier * 50f) * throttleAxis;
+                rearRightCollider.motorTorque = (accelerationMultiplier * 100f) * throttleAxis;
             }
             else
             {
