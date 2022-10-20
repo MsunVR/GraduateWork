@@ -13516,7 +13516,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 90
   maxReverseSpeed: 45
-  accelerationMultiplier: 2
+  BackWhellsMotor: 100
+  FrontWhellsMotor: 0
+  HorsePower: 200
   maxSteeringAngle: 27
   steeringSpeed: 0.5
   brakeForce: 350
@@ -15304,7 +15306,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 260
   maxReverseSpeed: 45
-  accelerationMultiplier: 10
+  BackWhellsMotor: 100
+  FrontWhellsMotor: 5
+  HorsePower: 240
   maxSteeringAngle: 30
   steeringSpeed: 0.5
   brakeForce: 350

@@ -10,8 +10,12 @@ public class CarDriver : MonoBehaviour
     public int maxSpeed = 260; //The maximum speed that the car can reach in km/h.
     [Range(10, 120)]
     public int maxReverseSpeed = 45; //The maximum speed that the car can reach while going on reverse in km/h.
-    [Range(1, 10)]
-    public int accelerationMultiplier = 2; // How fast the car can accelerate. 1 is a slow acceleration and 10 is the fastest.
+    [Range(1, 100)]
+    public int BackWhellsMotor = 100; //Задний привода
+    [Range(0,100)]
+    public int FrontWhellsMotor = 0; //Передний привод
+
+    public int HorsePower = 200; //Лошадиные силы
     [Space(10)]
     [Range(10, 45)]
     public int maxSteeringAngle = 27; // The maximum angle that the tires can reach while rotating the steering wheel.
@@ -497,13 +501,13 @@ public class CarDriver : MonoBehaviour
             {
                 //Apply positive torque in all wheels to go forward if maxSpeed has not been reached.
                 frontLeftCollider.brakeTorque = 0;
-                frontLeftCollider.motorTorque = (accelerationMultiplier * 50f) * throttleAxis;
+                frontLeftCollider.motorTorque = (FrontWhellsMotor * HorsePower) * throttleAxis;
                 frontRightCollider.brakeTorque = 0;
-                frontRightCollider.motorTorque = (accelerationMultiplier * 50f) * throttleAxis;
+                frontRightCollider.motorTorque = (FrontWhellsMotor * HorsePower) * throttleAxis;
                 rearLeftCollider.brakeTorque = 0;
-                rearLeftCollider.motorTorque = (accelerationMultiplier * 100f) * throttleAxis;
+                rearLeftCollider.motorTorque = (BackWhellsMotor * HorsePower) * throttleAxis;
                 rearRightCollider.brakeTorque = 0;
-                rearRightCollider.motorTorque = (accelerationMultiplier * 100f) * throttleAxis;
+                rearRightCollider.motorTorque = (BackWhellsMotor * HorsePower) * throttleAxis;
             }
             else
             {
@@ -552,13 +556,13 @@ public class CarDriver : MonoBehaviour
             {
                 //Apply negative torque in all wheels to go in reverse if maxReverseSpeed has not been reached.
                 frontLeftCollider.brakeTorque = 0;
-                frontLeftCollider.motorTorque = (accelerationMultiplier * 50f) * throttleAxis;
+                frontLeftCollider.motorTorque = (FrontWhellsMotor * HorsePower) * throttleAxis;
                 frontRightCollider.brakeTorque = 0;
-                frontRightCollider.motorTorque = (accelerationMultiplier * 50f) * throttleAxis;
+                frontRightCollider.motorTorque = (FrontWhellsMotor * HorsePower) * throttleAxis;
                 rearLeftCollider.brakeTorque = 0;
-                rearLeftCollider.motorTorque = (accelerationMultiplier * 50f) * throttleAxis;
+                rearLeftCollider.motorTorque = (BackWhellsMotor * HorsePower) * throttleAxis;
                 rearRightCollider.brakeTorque = 0;
-                rearRightCollider.motorTorque = (accelerationMultiplier * 50f) * throttleAxis;
+                rearRightCollider.motorTorque = (BackWhellsMotor * HorsePower) * throttleAxis;
             }
             else
             {
