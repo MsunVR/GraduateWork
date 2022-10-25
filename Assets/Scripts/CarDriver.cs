@@ -11,9 +11,9 @@ public class CarDriver : MonoBehaviour
     [Range(10, 120)]
     public int maxReverseSpeed = 45; //The maximum speed that the car can reach while going on reverse in km/h.
     [Range(1, 100)]
-    public int BackWhellsMotor = 100; //Задний привода
+    public int BackWhellsMotor = 10; //Задний привода
     [Range(0,100)]
-    public int FrontWhellsMotor = 0; //Передний привод
+    public int FrontWhellsMotor = 10; //Передний привод
 
     public int HorsePower = 200; //Лошадиные силы
     [Space(10)]
@@ -39,6 +39,8 @@ public class CarDriver : MonoBehaviour
 
     public GameObject Lights;
     public bool IsLight = false;
+
+    public bool IsActiveCar;
     //WHEELS
 
     //[Header("WHEELS")]

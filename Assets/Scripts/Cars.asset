@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 315d624a316180642af73f606d2c3cbc, type: 3}
+  m_Name: Cars
+  m_EditorClassIdentifier: 
+  Cars:
+  - Name: Tatsun 240z
+    CarScript: {fileID: 855322486494054795, guid: 6834e1d123b2b864cbd2e7e3456050b0, type: 3}
+    IsActiveCar: 1
+  - Name: Lamba
+    CarScript: {fileID: 778622866678504940, guid: 7480d76f610e23a43bfaf6f01b6922ae, type: 3}
+    IsActiveCar: 0

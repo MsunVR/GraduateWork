@@ -4,8 +4,9 @@ public class CarCam : MonoBehaviour
 {
     Transform rootNode;
     Transform carCam;
-    Transform car;
+    public Transform car;
     Rigidbody carPhysics;
+
 
     [Tooltip("If car speed is below this value, then the camera will default to looking forwards.")]
     public float rotationThreshold = 1f;
@@ -20,7 +21,6 @@ public class CarCam : MonoBehaviour
     {
         carCam = Camera.main.GetComponent<Transform>();
         rootNode = GetComponent<Transform>();
-        car = rootNode.parent.GetComponent<Transform>();
         carPhysics = car.GetComponent<Rigidbody>();
     }
 
