@@ -45,7 +45,7 @@ public class PauseMenu : MonoBehaviour
 
     public void ExitGame()
     {
-        Debug.Log("Игра закрылась");
+        Debug.Log("пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
         Application.Quit();
     }
 }

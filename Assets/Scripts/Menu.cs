@@ -9,10 +9,14 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene("Garage");
     }
+    private void Start()
+    {
+        Application.targetFrameRate = 144;
+    }
 
     public void ExitGame()
     {
-        Debug.Log("Игра закрылась");
+        Debug.Log("пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
         Application.Quit();
     }
 }

@@ -7,29 +7,29 @@ using UnityEngine.UI;
 public class CarDriver : MonoBehaviour
 {
     [Range(20, 260)]
-    public int maxSpeed = 260; //Максимальная скорость
+    public int maxSpeed = 260; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     [Range(10, 120)]
-    public int maxReverseSpeed = 45; //Максимальный задний ход
+    public int maxReverseSpeed = 45; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
     [Range(1, 100)]
-    public int BackWhellsMotor = 10; //Задний привода
+    public int BackWhellsMotor = 10; //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     [Range(0,100)]
-    public int FrontWhellsMotor = 10; //Передний привод
+    public int FrontWhellsMotor = 10; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
-    public int HorsePower = 200; //Лошадиные силы
+    public int HorsePower = 200; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
     [Space(10)]
     [Range(10, 45)]
-    public int maxSteeringAngle = 27; // Максимальный угол поворота рулевого колеса
+    public int maxSteeringAngle = 27; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     [Range(0.1f, 1f)]
-    public float steeringSpeed = 0.5f; // Как быстро крутится рулевое колесо
+    public float steeringSpeed = 0.5f; // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     [Space(10)]
     [Range(100, 600)]
-    public int brakeForce = 350; // Сила торможения
+    public int brakeForce = 350; // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     [Range(1, 10)]
     public int decelerationMultiplier = 2; 
     [Range(1, 10)]
     public int handbrakeDriftMultiplier = 5; 
     [Space(10)]
-    public Vector3 bodyMassCenter; // Центр массы авто
+    public Vector3 bodyMassCenter; // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 
     public Renderer Lamp;
     public Renderer FrontLamp;
@@ -245,10 +245,10 @@ public class CarDriver : MonoBehaviour
             }
 
             if (Input.GetKeyDown(KeyCode.S))
-                Lamp.materials[1].EnableKeyword("_EMISSION");
+                Lamp.material.EnableKeyword("_EMISSION");
 
             if (Input.GetKeyUp(KeyCode.S))
-                Lamp.materials[1].DisableKeyword("_EMISSION");
+                Lamp.material.DisableKeyword("_EMISSION");
 
 
             if (Input.GetKey(KeyCode.A))
