@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CarDriftController : MonoBehaviour
 {
@@ -16,9 +17,28 @@ public class CarDriftController : MonoBehaviour
     public float smokePower;
     public float motorPower;
     public float brakePower;
-    private float slipAngel;
+    public float slipAngle;
     private float speed;
+    private float speedClamped;
+    public float maxSpeed;
     public AnimationCurve steeringCurve;
+
+    public int isEngineRunning;
+
+    public float RPM;
+    public float redLine;
+    public float ideleRPM;
+    public TMP_Text rpmText;
+    public TMP_Text gearText;
+    public Transform rpmNeedle;
+    public int currentGear;
+    public float minNeedleRotation;
+    public float maxNeedleRotation;
+
+    public float[] gearRatios;
+    public float differentialRatio;
+    private float currentTorque;
+    private float clutch;
 
     void Start()
     {
@@ -42,7 +62,12 @@ public class CarDriftController : MonoBehaviour
 
     void Update()
     {
-        speed = playerRB.velocity.magnitude;
+        rpmNeedle.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(minNeedleRotation, maxNeedleRotation, RPM / redLine));
+        rpmText.text = RPM + "rpm";
+        gearText.text = (currentGear + 1).ToString();
+
+        speed = colliders.RRWheel.rpm * colliders.RRWheel.radius * 2f * Mathf.PI / 10f;
+        speedClamped = Mathf.Lerp(speedClamped, speed, Time.deltaTime);
         ApplyWheelPositions();
         CheckInput();
         ApplyMotor();
@@ -54,15 +79,24 @@ public class CarDriftController : MonoBehaviour
     void CheckInput() //Control
     {
         gasInput = Input.GetAxis("Vertical");
-        steeringInput = Input.GetAxis("Horizontal");
-        slipAngel = Vector3.Angle(transform.forward, playerRB.velocity - transform.forward);
-        if(slipAngel < 120f)
+
+        if (Mathf.Abs(gasInput) > 0 && isEngineRunning == 0)
         {
-            if (gasInput < 0)
-            {
-                brakeInput = Mathf.Abs(gasInput);
-                gasInput = 0;
-            }           
+            StartCoroutine(GetComponent<EngineAudio>().StartEngine());
+        }
+        steeringInput = Input.GetAxis("Horizontal");
+
+        slipAngle = Vector3.Angle(transform.forward, playerRB.velocity - transform.forward);
+
+        //fixed code to brake even after going on reverse by Andrew Alex 
+        float movingDirection = Vector3.Dot(transform.forward, playerRB.velocity);
+        if (movingDirection < -0.5f && gasInput > 0)
+        {
+            brakeInput = Mathf.Abs(gasInput);
+        }
+        else if (movingDirection > 0.5f && gasInput < 0)
+        {
+            brakeInput = Mathf.Abs(gasInput);
         }
         else
         {
@@ -81,17 +115,31 @@ public class CarDriftController : MonoBehaviour
 
     void ApplyMotor()//What wheels are rowing
     {
-        colliders.RRWheel.motorTorque = motorPower * gasInput;
-        colliders.RLWheel.motorTorque = motorPower * gasInput;
-        //colliders.FRWheel.motorTorque = motorPower * gasInput;
-        //colliders.FLWheel.motorTorque = motorPower * gasInput;
+        if (isEngineRunning > 1)
+        {
+            if (Mathf.Abs(speed) < maxSpeed)
+            {
+                colliders.RRWheel.motorTorque = motorPower * gasInput;
+                colliders.RLWheel.motorTorque = motorPower * gasInput;
+            }
+            else
+            {
+                colliders.RRWheel.motorTorque = 0;
+                colliders.RLWheel.motorTorque = 0;
+            }
+        }
     }
 
     void ApplySteering()//Turn
     {
         float steeringAngle = steeringInput * steeringCurve.Evaluate(speed);
-        colliders.FLWheel.steerAngle = steeringAngle;
+        if (slipAngle < 120f)
+        {
+            steeringAngle += Vector3.SignedAngle(transform.forward, playerRB.velocity + transform.forward, Vector3.up);
+        }
+        steeringAngle = Mathf.Clamp(steeringAngle, -90f, 90f);
         colliders.FRWheel.steerAngle = steeringAngle;
+        colliders.FLWheel.steerAngle = steeringAngle;
     }
 
     void ApplyWheelPositions() //Wheel setup
@@ -155,6 +203,11 @@ public class CarDriftController : MonoBehaviour
         coll.GetWorldPose(out position, out quat);
         wheelMesh.transform.position = position;
         wheelMesh.transform.rotation = quat;
+    }
+    public float GetSpeedRatio()
+    {
+        var gas = Mathf.Clamp(gasInput, 0.5f, 1f);
+        return speedClamped * gas / maxSpeed;
     }
 
 }
