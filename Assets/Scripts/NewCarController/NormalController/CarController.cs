@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using static UnityEngine.GraphicsBuffer;
+
 public enum GearState
 {
     Neutral,
@@ -29,6 +31,10 @@ public class CarController : MonoBehaviour
     public AnimationCurve steeringCurve;
 
     public int isEngineRunning;
+
+    [Header("UI")]
+    public TMP_Text speedLabel; // The label that displays the speed;
+    public Rigidbody target;
 
     public float RPM;
     public float redLine;
@@ -72,6 +78,11 @@ public class CarController : MonoBehaviour
 
     void Update()
     {
+        speed = target.velocity.magnitude * 3.6f;
+
+        if (speedLabel != null)
+            speedLabel.text = ((int)speed) + "";
+
         rpmNeedle.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(minNeedleRotation, maxNeedleRotation, RPM / (redLine*1.1f)));
         rpmText.text = RPM.ToString("0,000")+"rpm";
         gearText.text = (gearState==GearState.Neutral)?"N":(currentGear + 1).ToString();
