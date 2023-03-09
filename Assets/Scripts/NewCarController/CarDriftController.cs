@@ -66,7 +66,8 @@ public class CarDriftController : MonoBehaviour
         rpmText.text = RPM + "rpm";
         gearText.text = (currentGear + 1).ToString();
 
-        speed = colliders.RRWheel.rpm * colliders.RRWheel.radius * 2f * Mathf.PI / 10f;
+        //speed = colliders.RRWheel.rpm * colliders.RRWheel.radius * 2f * Mathf.PI / 10f;
+        speed = playerRB.velocity.magnitude;
         speedClamped = Mathf.Lerp(speedClamped, speed, Time.deltaTime);
         ApplyWheelPositions();
         CheckInput();
@@ -80,23 +81,15 @@ public class CarDriftController : MonoBehaviour
     {
         gasInput = Input.GetAxis("Vertical");
 
-        if (Mathf.Abs(gasInput) > 0 && isEngineRunning == 0)
-        {
-            StartCoroutine(GetComponent<EngineAudio>().StartEngine());
-        }
         steeringInput = Input.GetAxis("Horizontal");
-
-        slipAngle = Vector3.Angle(transform.forward, playerRB.velocity - transform.forward);
-
-        //fixed code to brake even after going on reverse by Andrew Alex 
-        float movingDirection = Vector3.Dot(transform.forward, playerRB.velocity);
-        if (movingDirection < -0.5f && gasInput > 0)
+        slipAngle = Vector3.Angle(transform.forward, playerRB.velocity);
+        if(slipAngle < 120f)
         {
-            brakeInput = Mathf.Abs(gasInput);
-        }
-        else if (movingDirection > 0.5f && gasInput < 0)
-        {
-            brakeInput = Mathf.Abs(gasInput);
+            if (gasInput < 0)
+            {
+                brakeInput = Mathf.Abs(gasInput);
+                gasInput = 0;
+            }
         }
         else
         {
@@ -115,8 +108,8 @@ public class CarDriftController : MonoBehaviour
 
     void ApplyMotor()//What wheels are rowing
     {
-        if (isEngineRunning > 1)
-        {
+        //if (isEngineRunning > 1)
+        //{
             if (Mathf.Abs(speed) < maxSpeed)
             {
                 colliders.RRWheel.motorTorque = motorPower * gasInput;
@@ -127,28 +120,19 @@ public class CarDriftController : MonoBehaviour
                 colliders.RRWheel.motorTorque = 0;
                 colliders.RLWheel.motorTorque = 0;
             }
-        }
+        //}
     }
 
-    void ApplySteering()//Turn
+    void ApplySteering()
     {
         float steeringAngle = steeringInput * steeringCurve.Evaluate(speed);
-        if (slipAngle < 120f)
-        {
-            steeringAngle += Vector3.SignedAngle(transform.forward, playerRB.velocity + transform.forward, Vector3.up);
-        }
-        steeringAngle = Mathf.Clamp(steeringAngle, -90f, 90f);
+        steeringAngle += Vector3.SignedAngle(transform.forward, playerRB.velocity + transform.forward, Vector3.up);
+        steeringAngle = Mathf.Clamp(steeringAngle, -45f, 45f); //dovodka rula pri drifte
         colliders.FRWheel.steerAngle = steeringAngle;
         colliders.FLWheel.steerAngle = steeringAngle;
     }
 
-    void ApplyWheelPositions() //Wheel setup
-    {
-        UpdateWheel(colliders.FRWheel, wheelMeshes.FRWheel);
-        UpdateWheel(colliders.FLWheel, wheelMeshes.FLWheel);
-        UpdateWheel(colliders.RRWheel, wheelMeshes.RRWheel);
-        UpdateWheel(colliders.RLWheel, wheelMeshes.RLWheel);
-    }
+
     void CheckParticles()//Drifting particles
     {
         WheelHit[] wheelHits = new WheelHit[4];
@@ -196,6 +180,14 @@ public class CarDriftController : MonoBehaviour
         }
     }
 
+    void ApplyWheelPositions() //Wheel setup
+    {
+        UpdateWheel(colliders.FRWheel, wheelMeshes.FRWheel);
+        UpdateWheel(colliders.FLWheel, wheelMeshes.FLWheel);
+        UpdateWheel(colliders.RRWheel, wheelMeshes.RRWheel);
+        UpdateWheel(colliders.RLWheel, wheelMeshes.RLWheel);
+    }
+
     void UpdateWheel(WheelCollider coll, MeshRenderer wheelMesh)
     {
         Quaternion quat;
@@ -206,10 +198,9 @@ public class CarDriftController : MonoBehaviour
     }
     public float GetSpeedRatio()
     {
-        var gas = Mathf.Clamp(gasInput, 0.5f, 1f);
+        var gas = Mathf.Clamp(Mathf.Abs(gasInput), 0.5f, 1f);
         return speedClamped * gas / maxSpeed;
     }
-
 }
 [System.Serializable]
 public class WheelColliders
