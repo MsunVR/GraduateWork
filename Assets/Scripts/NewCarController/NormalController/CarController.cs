@@ -210,7 +210,7 @@ public class CarController : MonoBehaviour
         {
             steeringAngle += Vector3.SignedAngle(transform.forward, playerRB.velocity + transform.forward, Vector3.up);
         }
-        steeringAngle = Mathf.Clamp(steeringAngle, -90f, 90f);
+        steeringAngle = Mathf.Clamp(steeringAngle, -45f, 45f);//Ugol dovorota 
         colliders.FRWheel.steerAngle = steeringAngle;
         colliders.FLWheel.steerAngle = steeringAngle;
     }
