@@ -86,7 +86,7 @@ public class CarController : MonoBehaviour
         rpmNeedle.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(minNeedleRotation, maxNeedleRotation, RPM / (redLine*1.1f)));
         rpmText.text = RPM.ToString("0,000")+"rpm";
         gearText.text = (gearState==GearState.Neutral)?"N":(currentGear + 1).ToString();
-        speed = colliders.RRWheel.rpm*colliders.RRWheel.radius*2f*Mathf.PI /10f;
+        speed = colliders.RRWheel.rpm * colliders.RRWheel.radius * 2f * Mathf.PI / 10f;
         speedClamped = Mathf.Lerp(speedClamped, speed, Time.deltaTime);
         CheckInput();
         ApplyMotor();
@@ -99,8 +99,8 @@ public class CarController : MonoBehaviour
     void CheckInput()
     {
         gasInput = Input.GetAxis("Vertical");
-        
-        if (Mathf.Abs(gasInput) > 0&&isEngineRunning==0)
+
+        if (Mathf.Abs(gasInput) > 0 && isEngineRunning == 0) 
         {
             StartCoroutine(GetComponent<EngineAudio>().StartEngine());
             gearState = GearState.Running;
