@@ -1292,7 +1292,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 178181a53a897544dbf3488d7549eda6, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -6045,8 +6045,8 @@ MonoBehaviour:
   runningMaxVolume: 1
   runningMaxPitch: 2
   reverseSound: {fileID: 955531083}
-  reverseMaxVolume: 0
-  reverseMaxPitch: 0
+  reverseMaxVolume: 0.2
+  reverseMaxPitch: 1
   idleSound: {fileID: 1965138569}
   idleMaxVolume: 1
   speedRatio: 0

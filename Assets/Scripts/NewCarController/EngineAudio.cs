@@ -7,11 +7,14 @@ public class EngineAudio : MonoBehaviour
     public AudioSource runningSound;
     public float runningMaxVolume;
     public float runningMaxPitch;
+
     public AudioSource reverseSound;
     public float reverseMaxVolume;
     public float reverseMaxPitch;
+
     public AudioSource idleSound;
     public float idleMaxVolume;
+
     public float speedRatio;
     private float revLimiter;
     public float LimiterSound = 1f;

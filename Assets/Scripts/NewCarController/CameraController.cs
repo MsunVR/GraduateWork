@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
     private Rigidbody playerRB;
     public Vector3 Offset;
     public float speed;
-
+    // Start is called before the first frame update
     void Start()
     {
         playerRB = player.GetComponent<Rigidbody>();
