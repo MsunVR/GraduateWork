@@ -7,14 +7,11 @@ public class EngineAudio : MonoBehaviour
     public AudioSource runningSound;
     public float runningMaxVolume;
     public float runningMaxPitch;
-
     public AudioSource reverseSound;
     public float reverseMaxVolume;
     public float reverseMaxPitch;
-
     public AudioSource idleSound;
     public float idleMaxVolume;
-
     public float speedRatio;
     private float revLimiter;
     public float LimiterSound = 1f;
@@ -25,11 +22,11 @@ public class EngineAudio : MonoBehaviour
     public AudioSource startingSound;
 
 
-    private CarController carDriftController;
+    private CarController carController;
     // Start is called before the first frame update
     void Start()
     {
-        carDriftController = GetComponent<CarController>();
+        carController = GetComponent<CarController>();
         idleSound.volume = 0;
         runningSound.volume = 0;
         reverseSound.volume = 0;
@@ -38,11 +35,11 @@ public class EngineAudio : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float speedSign = 0;
-        if (carDriftController)
+        float speedSign=0;
+        if (carController)
         {
-            speedSign = Mathf.Sign(carDriftController.GetSpeedRatio());
-            speedRatio = Mathf.Abs(carDriftController.GetSpeedRatio());
+            speedSign = Mathf.Sign(carController.GetSpeedRatio());
+            speedRatio = Mathf.Abs(carController.GetSpeedRatio());
         }
         if (speedRatio > LimiterEngage)
         {
@@ -64,8 +61,7 @@ public class EngineAudio : MonoBehaviour
                 reverseSound.pitch = Mathf.Lerp(0.2f, reverseMaxPitch, speedRatio);
             }
         }
-        else
-        {
+        else {
             idleSound.volume = 0;
             runningSound.volume = 0;
         }
@@ -73,10 +69,10 @@ public class EngineAudio : MonoBehaviour
     public IEnumerator StartEngine()
     {
         startingSound.Play();
-        carDriftController.isEngineRunning = 1;
+        carController.isEngineRunning = 1;
         yield return new WaitForSeconds(0.6f);
         isEngineRunning = true;
         yield return new WaitForSeconds(0.4f);
-        carDriftController.isEngineRunning = 2;
+        carController.isEngineRunning = 2;
     }
 }

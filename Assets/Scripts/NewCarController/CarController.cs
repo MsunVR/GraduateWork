@@ -182,7 +182,7 @@ public class CarController : MonoBehaviour
     float CalculateTorque()
     {
         float torque = 0;
-        if (RPM < idleRPM + 200 && gasInput==0 && currentGear == 0)
+        if (RPM < idleRPM + 200 && gasInput == 0 && currentGear == 0) 
         {
             gearState = GearState.Neutral;
         }
@@ -221,7 +221,7 @@ public class CarController : MonoBehaviour
         {
             steeringAngle += Vector3.SignedAngle(transform.forward, playerRB.velocity + transform.forward, Vector3.up);
         }
-        steeringAngle = Mathf.Clamp(steeringAngle, -45f, 45f);//Ugol dovorota 
+        steeringAngle = Mathf.Clamp(steeringAngle, -60f, 60f);//Ugol dovorota 
         colliders.FRWheel.steerAngle = steeringAngle;
         colliders.FLWheel.steerAngle = steeringAngle;
     }
