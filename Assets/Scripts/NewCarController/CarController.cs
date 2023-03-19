@@ -65,13 +65,13 @@ public class CarController : MonoBehaviour
 
     void InstantiateSmoke()
     {
-        wheelParticles.FRWheel = Instantiate(smokePrefab, colliders.FRWheel.transform.position-Vector3.up*colliders.FRWheel.radius, Quaternion.identity, colliders.FRWheel.transform)
+        wheelParticles.FRWheel = Instantiate(smokePrefab, colliders.FRWheel.transform.position - Vector3.up * colliders.FRWheel.radius, Quaternion.identity, colliders.FRWheel.transform)
             .GetComponent<ParticleSystem>();
-        wheelParticles.FLWheel = Instantiate(smokePrefab, colliders.FLWheel.transform.position- Vector3.up * colliders.FRWheel.radius, Quaternion.identity, colliders.FLWheel.transform)
+        wheelParticles.FLWheel = Instantiate(smokePrefab, colliders.FLWheel.transform.position - Vector3.up * colliders.FRWheel.radius, Quaternion.identity, colliders.FLWheel.transform)
             .GetComponent<ParticleSystem>();
-        wheelParticles.RRWheel = Instantiate(smokePrefab, colliders.RRWheel.transform.position- Vector3.up * colliders.FRWheel.radius, Quaternion.identity, colliders.RRWheel.transform)
+        wheelParticles.RRWheel = Instantiate(smokePrefab, colliders.RRWheel.transform.position - Vector3.up * colliders.FRWheel.radius, Quaternion.identity, colliders.RRWheel.transform)
             .GetComponent<ParticleSystem>();
-        wheelParticles.RLWheel = Instantiate(smokePrefab, colliders.RLWheel.transform.position- Vector3.up * colliders.FRWheel.radius, Quaternion.identity, colliders.RLWheel.transform)
+        wheelParticles.RLWheel = Instantiate(smokePrefab, colliders.RLWheel.transform.position - Vector3.up * colliders.FRWheel.radius, Quaternion.identity, colliders.RLWheel.transform)
             .GetComponent<ParticleSystem>();
     }
     // Update is called once per frame
@@ -234,6 +234,48 @@ public class CarController : MonoBehaviour
         UpdateWheel(colliders.RLWheel, wheelMeshes.RLWheel);
     }
     void CheckParticles() {
+        /*
+        WheelHit[] wheelHits = new WheelHit[4];
+        colliders.FRWheel.GetGroundHit(out wheelHits[0]);
+        colliders.FLWheel.GetGroundHit(out wheelHits[1]);
+
+        colliders.RRWheel.GetGroundHit(out wheelHits[2]);
+        colliders.RLWheel.GetGroundHit(out wheelHits[3]);
+
+        //FRWheel
+        if (!colliders.FRWheel.isGrounded)
+            return;
+
+        if (Mathf.Abs(colliders.FRWheel.sidewaysFriction.extremumSlip) < Mathf.Abs(wheelHits[0].sidewaysSlip))
+            wheelParticles.FRWheel.Play();
+        else
+            wheelParticles.FRWheel.Stop();
+        //FLWheel
+        if (!colliders.FLWheel.isGrounded)
+            return;
+
+        if (Mathf.Abs(colliders.FLWheel.sidewaysFriction.extremumSlip) < Mathf.Abs(wheelHits[1].sidewaysSlip))
+            wheelParticles.FLWheel.Play();
+        else
+            wheelParticles.FLWheel.Stop();
+        //RRWheel
+        if (!colliders.RRWheel.isGrounded)
+            return;
+
+        if (Mathf.Abs(colliders.RRWheel.sidewaysFriction.extremumSlip) < Mathf.Abs(wheelHits[2].sidewaysSlip))
+            wheelParticles.RRWheel.Play();
+        else
+            wheelParticles.RRWheel.Stop();
+        //RLWheel
+        if (!colliders.RLWheel.isGrounded)
+            return;
+
+        if (Mathf.Abs(colliders.RLWheel.sidewaysFriction.extremumSlip) < Mathf.Abs(wheelHits[3].sidewaysSlip))
+            wheelParticles.RLWheel.Play();
+        else
+            wheelParticles.RLWheel.Stop();
+
+        */
         WheelHit[] wheelHits = new WheelHit[4];
         colliders.FRWheel.GetGroundHit(out wheelHits[0]);
         colliders.FLWheel.GetGroundHit(out wheelHits[1]);
@@ -258,6 +300,7 @@ public class CarController : MonoBehaviour
         }
         if ((Mathf.Abs(wheelHits[2].sidewaysSlip) + Mathf.Abs(wheelHits[2].forwardSlip) > slipAllowance)){
             wheelParticles.RRWheel.Play();
+           
         }
         else
         {
@@ -271,7 +314,7 @@ public class CarController : MonoBehaviour
             wheelParticles.RLWheel.Stop();
         }
 
-
+        
     }
     void UpdateWheel(WheelCollider coll, MeshRenderer wheelMesh)
     {
