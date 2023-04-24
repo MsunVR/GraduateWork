@@ -61,6 +61,7 @@ public class CarController : MonoBehaviour
     public GameObject tireTrail;
     public Renderer BackLamp;
     public GameObject bLights;
+    public bool IsBLight = false;
 
     public Renderer FrontLamp;
     public GameObject Lights;
@@ -124,11 +125,16 @@ public class CarController : MonoBehaviour
             {
                 FrontLamp.materials[0].EnableKeyword("_EMISSION");
                 Lights.SetActive(true);
+
+                BackLamp.materials[0].EnableKeyword("_EMISSION");
+                bLights.SetActive(true);
             }
             else
             {
                 FrontLamp.materials[0].DisableKeyword("_EMISSION");
                 Lights.SetActive(false);
+                BackLamp.materials[0].DisableKeyword("_EMISSION");
+                bLights.SetActive(false);
             }
             IsLight = !IsLight;
         }
@@ -145,7 +151,7 @@ public class CarController : MonoBehaviour
         //        BackLamp.materials[0].DisableKeyword("_EMISSION");
         //        bLights.SetActive(false);
         //    }
-        //    IsLight = !IsLight;
+
         //}
     }
 
