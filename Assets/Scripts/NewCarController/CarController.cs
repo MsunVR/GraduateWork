@@ -25,11 +25,26 @@ public class CarController : MonoBehaviour
     public GameObject smokePrefab;
     public float motorPower;
     public float brakePower;
-    public float slipAngle;
+    private float slipAngle;//Polezno
     public float speed;
     private float speedClamped;
     public float maxSpeed;
     public AnimationCurve steeringCurve;
+
+    //drift
+
+   
+    public float driftTimeThreshold = 1f;
+    public float pointsPerDrift = 10f;
+    public float pointsLostOnCrash = 20f;
+    public float pointsLostOnOutOfBounds = 10f;
+
+    public float DriftAngle;
+    private float currentDriftAngle = 0f;
+    private float currentDriftTime = 0f;
+    private float currentScore = 0f;
+
+    private bool isDrifting = false;
 
     public int isEngineRunning;
 
@@ -100,9 +115,26 @@ public class CarController : MonoBehaviour
     }
     // Update is called once per frame
 
-    void Update()
+    void FixedUpdate()
     {
-        speed = target.velocity.magnitude * 3.6f;
+        //Drift
+        if (isDrifting)
+        {
+            currentDriftAngle += Mathf.Abs(Input.GetAxis("Horizontal"));
+            currentDriftTime += Time.deltaTime;
+
+
+            if (currentDriftAngle >= DriftAngle && currentDriftTime >= driftTimeThreshold)
+            {
+                currentScore += pointsPerDrift;
+                currentDriftAngle = 0f;
+                currentDriftTime = 0f;
+            }
+        }
+    
+
+
+    speed = target.velocity.magnitude * 3.6f;
 
         if (speedLabel != null)
             speedLabel.text = ((int)speed) + "";
@@ -200,25 +232,6 @@ public class CarController : MonoBehaviour
         }
         
 
-
-        /*
-        old tutorial code
-        if (slipAngle < 120f) {
-            if (gasInput < 0)
-            {
-                brakeInput = Mathf.Abs( gasInput);
-                gasInput = 0;
-            }
-            else
-            {
-                brakeInput = 0;
-            }
-        }
-        else
-        {
-            brakeInput = 0;
-        }*/
-
     }
     void ApplyBrake()
     {
@@ -296,48 +309,7 @@ public class CarController : MonoBehaviour
         UpdateWheel(colliders.RLWheel, wheelMeshes.RLWheel);
     }
     void CheckParticles() {
-        /*
-        WheelHit[] wheelHits = new WheelHit[4];
-        colliders.FRWheel.GetGroundHit(out wheelHits[0]);
-        colliders.FLWheel.GetGroundHit(out wheelHits[1]);
-
-        colliders.RRWheel.GetGroundHit(out wheelHits[2]);
-        colliders.RLWheel.GetGroundHit(out wheelHits[3]);
-
-        //FRWheel
-        if (!colliders.FRWheel.isGrounded)
-            return;
-
-        if (Mathf.Abs(colliders.FRWheel.sidewaysFriction.extremumSlip) < Mathf.Abs(wheelHits[0].sidewaysSlip))
-            wheelParticles.FRWheel.Play();
-        else
-            wheelParticles.FRWheel.Stop();
-        //FLWheel
-        if (!colliders.FLWheel.isGrounded)
-            return;
-
-        if (Mathf.Abs(colliders.FLWheel.sidewaysFriction.extremumSlip) < Mathf.Abs(wheelHits[1].sidewaysSlip))
-            wheelParticles.FLWheel.Play();
-        else
-            wheelParticles.FLWheel.Stop();
-        //RRWheel
-        if (!colliders.RRWheel.isGrounded)
-            return;
-
-        if (Mathf.Abs(colliders.RRWheel.sidewaysFriction.extremumSlip) < Mathf.Abs(wheelHits[2].sidewaysSlip))
-            wheelParticles.RRWheel.Play();
-        else
-            wheelParticles.RRWheel.Stop();
-        //RLWheel
-        if (!colliders.RLWheel.isGrounded)
-            return;
-
-        if (Mathf.Abs(colliders.RLWheel.sidewaysFriction.extremumSlip) < Mathf.Abs(wheelHits[3].sidewaysSlip))
-            wheelParticles.RLWheel.Play();
-        else
-            wheelParticles.RLWheel.Stop();
-
-        */
+       
         WheelHit[] wheelHits = new WheelHit[4];
         colliders.FRWheel.GetGroundHit(out wheelHits[0]);
         colliders.FLWheel.GetGroundHit(out wheelHits[1]);
@@ -385,6 +357,38 @@ public class CarController : MonoBehaviour
 
         
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            currentScore -= pointsLostOnCrash;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Boundary"))
+        {
+            currentScore -= pointsLostOnOutOfBounds;
+        }
+    }
+
+    void OnGUI()
+    {
+        GUI.Label(new Rect(100, 10, 300, 200), "Score: " + currentScore);
+    }
+
+    public void StartDrift()
+    {
+        isDrifting = true;
+    }
+
+    public void StopDrift()
+    {
+        isDrifting = false;
+    }
+
     void UpdateWheel(WheelCollider coll, MeshRenderer wheelMesh)
     {
         Quaternion quat;
