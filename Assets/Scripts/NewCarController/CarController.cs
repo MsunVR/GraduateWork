@@ -115,7 +115,7 @@ public class CarController : MonoBehaviour
     }
     // Update is called once per frame
 
-    void FixedUpdate()
+    void Update()
     {
         //Drift
         if (isDrifting)
@@ -374,10 +374,10 @@ public class CarController : MonoBehaviour
         }
     }
 
-    void OnGUI()
-    {
-        GUI.Label(new Rect(100, 10, 300, 200), "Score: " + currentScore);
-    }
+    //void OnGUI()
+    //{
+    //    GUI.Label(new Rect(100, 10, 300, 200), "Score: " + currentScore);
+    //}
 
     public void StartDrift()
     {
