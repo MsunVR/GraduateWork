@@ -77,7 +77,7 @@ public class DriftManager : MonoBehaviour
         if (!isDrifting)
         {
             await Task.Delay(Mathf.RoundToInt(1000 * driftingDelay));
-            driftFactor = 1;
+            driftFactor = 0.5f;
         }
         if (stopDriftingCoroutine != null)
         {
@@ -96,21 +96,21 @@ public class DriftManager : MonoBehaviour
 
     private IEnumerator StopingDrift()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
         currentScoreText.color = nearStopColor;
         yield return new WaitForSeconds(driftingDelay * 4f);
         totalScore += currentScore;
         isDrifting = false;
         currentScoreText.color = driftEndedColor;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.9f);
         currentScore = 0;
         driftingObject.SetActive(false);
     }
 
     void ManageUI()
     {
-        totalScoreText.text = "Total: " + (totalScore).ToString("###,###,000");
-        factorText.text = driftFactor.ToString("###,###,##0.0") + "X";
+        totalScoreText.text = "Total score: " + (totalScore).ToString("###,###,000");
+        factorText.text = driftFactor.ToString("###,###,##0") + "X";
         currentScoreText.text = currentScore.ToString("###,###,000");
         driftAngleText.text = driftAngle.ToString("###,##0") + "°";
     }
