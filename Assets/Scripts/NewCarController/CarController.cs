@@ -25,26 +25,15 @@ public class CarController : MonoBehaviour
     public GameObject smokePrefab;
     public float motorPower;
     public float brakePower;
-    private float slipAngle;//Polezno
+    private float slipAngle;
     public float speed;
     private float speedClamped;
     public float maxSpeed;
     public AnimationCurve steeringCurve;
 
-    //drift
 
-   
-    public float driftTimeThreshold = 1f;
-    public float pointsPerDrift = 10f;
-    public float pointsLostOnCrash = 20f;
-    public float pointsLostOnOutOfBounds = 10f;
 
-    public float DriftAngle;
-    private float currentDriftAngle = 0f;
-    private float currentDriftTime = 0f;
-    private float currentScore = 0f;
 
-    private bool isDrifting = false;
 
     public int isEngineRunning;
 
@@ -117,23 +106,6 @@ public class CarController : MonoBehaviour
 
     void Update()
     {
-        //Drift
-        if (isDrifting)
-        {
-            currentDriftAngle += Mathf.Abs(Input.GetAxis("Horizontal"));
-            currentDriftTime += Time.deltaTime;
-
-
-            if (currentDriftAngle >= DriftAngle && currentDriftTime >= driftTimeThreshold)
-            {
-                currentScore += pointsPerDrift;
-                currentDriftAngle = 0f;
-                currentDriftTime = 0f;
-            }
-        }
-    
-
-
     speed = target.velocity.magnitude * 3.6f;
 
         if (speedLabel != null)
@@ -191,7 +163,7 @@ public class CarController : MonoBehaviour
     {
         gasInput = Input.GetAxis("Vertical");
 
-        if (Mathf.Abs(gasInput) > 0 && isEngineRunning == 0) 
+        if (Mathf.Abs(gasInput) > 0 && isEngineRunning == 0)
         {
             StartCoroutine(GetComponent<EngineAudio>().StartEngine());
             gearState = GearState.Running;
@@ -272,8 +244,8 @@ public class CarController : MonoBehaviour
                 StartCoroutine(ChangeGear(-1));
             }
         }
-        if (isEngineRunning > 0)
-        {
+        //if (isEngineRunning > 0)
+        //{
             if (clutch < 0.1f)
             {
                 RPM = Mathf.Lerp(RPM, Mathf.Max(idleRPM, redLine * gasInput) + Random.Range(-50, 50), Time.deltaTime);
@@ -284,7 +256,7 @@ public class CarController : MonoBehaviour
                 RPM = Mathf.Lerp(RPM, Mathf.Max(idleRPM - 100, wheelRPM), Time.deltaTime * 3f);
                 torque = (hpToRPMCurve.Evaluate(RPM / redLine) * motorPower / RPM) * gearRatios[currentGear] * differentialRatio * 5252f * clutch;
             }
-        }
+        //}
         return torque;
     }
 
@@ -356,37 +328,6 @@ public class CarController : MonoBehaviour
         }
 
         
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Obstacle"))
-        {
-            currentScore -= pointsLostOnCrash;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Boundary"))
-        {
-            currentScore -= pointsLostOnOutOfBounds;
-        }
-    }
-
-    //void OnGUI()
-    //{
-    //    GUI.Label(new Rect(100, 10, 300, 200), "Score: " + currentScore);
-    //}
-
-    public void StartDrift()
-    {
-        isDrifting = true;
-    }
-
-    public void StopDrift()
-    {
-        isDrifting = false;
     }
 
     void UpdateWheel(WheelCollider coll, MeshRenderer wheelMesh)
