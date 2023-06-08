@@ -5,9 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
-    public void PlayGame()
+    public void Play1()
     {
-        SceneManager.LoadScene("Primer");
+        SceneManager.LoadScene("Primer");  
+    }
+    public void Play2()
+    {
+        SceneManager.LoadScene("Rocks");
     }
     private void Start()
     {

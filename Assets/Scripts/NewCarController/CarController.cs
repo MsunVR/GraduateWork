@@ -102,15 +102,48 @@ public class CarController : MonoBehaviour
                 .GetComponent<TrailRenderer>();
         }
     }
-    // Update is called once per frame
 
-    void Update()
+    private void MoveCarToNearestPoint()
+    {
+        LineSegment[] lineSegments = FindObjectsOfType<LineSegment>();
+
+        if (lineSegments.Length == 0)
+        {
+            Debug.LogWarning("No LineSegments found in the scene.");
+            return;
+        }
+        LineSegment nextSegm = null;
+        Vector3 carPosition = transform.position;
+        float shortestDistance = Mathf.Infinity;
+        Vector3 nearestPoint = Vector3.zero;
+
+        foreach (LineSegment lineSegment in lineSegments)
+        {
+            Vector3 linePosition = lineSegment.transform.position;
+            float distance = Vector3.Distance(carPosition, linePosition);
+
+            if (distance < shortestDistance)
+            {
+                shortestDistance = distance;
+                nearestPoint = linePosition;
+                nextSegm = lineSegment.nextSegments[0] ?? null;
+            }
+        }
+
+        if (nextSegm != null)
+            //transform.position = nearestPoint;
+            transform.LookAt(nextSegm.transform.position);
+    }
+
+
+void Update()
     {
     speed = target.velocity.magnitude * 3.6f;
 
         if (speedLabel != null)
+        {
             speedLabel.text = ((int)speed) + "";
-
+        }
         rpmNeedle.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(minNeedleRotation, maxNeedleRotation, RPM / (redLine*1.1f)));
         rpmText.text = RPM.ToString("0,000")+"rpm";
         gearText.text = (gearState==GearState.Neutral)?"N":(currentGear + 1).ToString();
@@ -122,6 +155,12 @@ public class CarController : MonoBehaviour
         ApplyBrake();
         CheckParticles();
         ApplyWheelPositions();
+        //MoveCarToNearestPoint();
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            MoveCarToNearestPoint();
+        }
 
         if (Input.GetKeyDown(KeyCode.L))
         {
@@ -183,7 +222,7 @@ public class CarController : MonoBehaviour
             }
             else
             {
-            clutch = Input.GetKey(KeyCode.LeftShift) ? 0 : Mathf.Lerp(clutch, 1, Time.deltaTime);
+            clutch = Input.GetKey(KeyCode.P) ? 0 : Mathf.Lerp(clutch, 1, Time.deltaTime);
             }
         }
         else

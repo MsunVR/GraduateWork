@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 65cc3ac35950c9e42a1b8f0ba186de36
   - enabled: 1
+    path: Assets/Scenes/Rocks.unity
+    guid: 762b4ae7a7d83fb45827e21743609fae
+  - enabled: 0
     path: Assets/Scenes/Primer.unity
     guid: 355cdcd096270b84f872347125819942
   - enabled: 0

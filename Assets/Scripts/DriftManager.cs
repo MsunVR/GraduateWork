@@ -12,6 +12,7 @@ public class DriftManager : MonoBehaviour
     public Text factorText;
     public Text driftAngleText;
 
+
     private float speed = 0;
     private float driftAngle = 0;
     private float driftFactor = 1;
