@@ -155,7 +155,7 @@ void Update()
         ApplyBrake();
         CheckParticles();
         ApplyWheelPositions();
-        //MoveCarToNearestPoint();
+
 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -208,10 +208,11 @@ void Update()
             gearState = GearState.Running;
         }
         steeringInput = Input.GetAxis("Horizontal");
-       
-        slipAngle = Vector3.Angle(transform.forward, playerRB.velocity-transform.forward);
 
-                //fixed code to brake even after going on reverse by Andrew Alex 
+        slipAngle = Vector3.Angle(transform.forward, playerRB.velocity - transform.forward);
+
+
+        //fixed code to brake even after going on reverse by Andrew Alex 
         float movingDirection = Vector3.Dot(transform.forward, playerRB.velocity);
         if (gearState != GearState.Changing)
         {
@@ -222,7 +223,7 @@ void Update()
             }
             else
             {
-            clutch = Input.GetKey(KeyCode.P) ? 0 : Mathf.Lerp(clutch, 1, Time.deltaTime);
+                clutch = Input.GetKey(KeyCode.P) ? 0 : Mathf.Lerp(clutch, 1, Time.deltaTime);
             }
         }
         else
@@ -241,11 +242,13 @@ void Update()
         {
             brakeInput = 0;
         }
-        
 
     }
-    void ApplyBrake()
+
+        void ApplyBrake()
     {
+
+
         colliders.FRWheel.brakeTorque = brakeInput * brakePower * 0.7f;
         colliders.FLWheel.brakeTorque = brakeInput * brakePower * 0.7f;
 
