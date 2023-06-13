@@ -15,7 +15,7 @@ public class Menu : MonoBehaviour
     }
     private void Start()
     {
-        Application.targetFrameRate = 144;
+        //Application.targetFrameRate = 144;
     }
 
     public void ExitGame()

@@ -119,7 +119,7 @@ public class CarDriver : MonoBehaviour
     {
         carRigidbody = gameObject.GetComponent<Rigidbody>();
         carRigidbody.centerOfMass = bodyMassCenter;
-        Application.targetFrameRate = 61;
+        //Application.targetFrameRate = 61;
        
         FLwheelFriction = new WheelFrictionCurve();
         FLwheelFriction.extremumSlip = frontLeftCollider.sidewaysFriction.extremumSlip;
