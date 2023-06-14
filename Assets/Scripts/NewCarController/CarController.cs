@@ -30,7 +30,7 @@ public class CarController : MonoBehaviour
     private float speedClamped;
     public float maxSpeed;
     public AnimationCurve steeringCurve;
-
+    private bool handrbake = false;
 
 
 
@@ -242,7 +242,7 @@ void Update()
         {
             brakeInput = 0;
         }
-
+        handrbake = (Input.GetKey(KeyCode.Space));
     }
 
         void ApplyBrake()
@@ -254,9 +254,11 @@ void Update()
 
         colliders.RRWheel.brakeTorque = brakeInput * brakePower * 0.3f;
         colliders.RLWheel.brakeTorque = brakeInput * brakePower * 0.3f;
-        if(brakeInput > 0)
+        if (handrbake)
         {
-
+            clutch = 0;
+            colliders.RRWheel.brakeTorque = brakePower * 1000f;
+            colliders.RLWheel.brakeTorque = brakePower * 1000f;
         }
 
     }
@@ -265,6 +267,8 @@ void Update()
         currentTorque = CalculateTorque();
         colliders.RRWheel.motorTorque = currentTorque * gasInput;
         colliders.RLWheel.motorTorque = currentTorque * gasInput;
+        colliders.FRWheel.motorTorque = currentTorque/2 * gasInput;
+        colliders.FLWheel.motorTorque = currentTorque/2 * gasInput;
 
     }
 
