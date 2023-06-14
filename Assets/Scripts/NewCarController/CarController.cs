@@ -131,7 +131,7 @@ public class CarController : MonoBehaviour
         }
 
         if (nextSegm != null)
-            //transform.position = nearestPoint;
+            transform.position = nearestPoint;
             transform.LookAt(nextSegm.transform.position);
     }
 
