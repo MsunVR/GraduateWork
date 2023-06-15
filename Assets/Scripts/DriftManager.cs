@@ -78,7 +78,7 @@ public class DriftManager : MonoBehaviour
         if (!isDrifting)
         {
             await Task.Delay(Mathf.RoundToInt(1000 * driftingDelay));
-            driftFactor = 0.5f;
+            driftFactor = 0.9f;
         }
         if (stopDriftingCoroutine != null)
         {
